@@ -118,6 +118,11 @@ scan_floating_point_string(std::string_view const string) noexcept
         || is_valid_digit_sequence(results.fractional, results.base)))
     return std::nullopt;
 
+#ifdef __GNUC__
+#  pragma GCC diagnostic push
+#  pragma GCC diagnostic ignored "-Wsign-conversion"
+#endif
+
   results.fractional_precision = [&]() {
     auto result = 0U;
 
@@ -127,6 +132,10 @@ scan_floating_point_string(std::string_view const string) noexcept
 
     return result;
   }();
+
+#ifdef __GNUC__
+#  pragma GCC diagnostic pop
+#endif
 
   if (no_exponent_separator)
     return results;
