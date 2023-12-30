@@ -128,8 +128,8 @@ constexpr auto mixed_number<WRep, FRep, Ops>::as_fraction() const noexcept
 }
 
 template <typename WRep, typename FRep, typename Ops>
-constexpr mixed_number<WRep, FRep, Ops>::operator fraction<common_rep_type,
-                                                           ops_type>()
+constexpr mixed_number<WRep, FRep, Ops>::operator fraction<typename mixed_number<WRep, FRep, Ops>::common_rep_type,
+                                                           typename mixed_number<WRep, FRep, Ops>::ops_type>()
   const noexcept
 {
   return as_fraction();

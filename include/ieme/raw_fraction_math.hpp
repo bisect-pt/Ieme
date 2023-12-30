@@ -45,9 +45,16 @@ template <typename Rep>
 constexpr raw_fraction<Rep>
 normalize_signs(raw_fraction<Rep> const& value) noexcept
 {
-  return (value.denominator > _0<Rep>)
-           ? value
-           : raw_fraction<Rep>(-value.numerator, -value.denominator);
+  if constexpr (std::is_signed_v<Rep>)
+  {
+    return (value.denominator > _0<Rep>)
+             ? value
+             : raw_fraction<Rep>(-value.numerator, -value.denominator);
+  }
+  else
+  {
+    return value;
+  }
 }
 
 template <typename Rep>
